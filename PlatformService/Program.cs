@@ -10,18 +10,24 @@ builder.Services.AddOpenApi();
 builder.Services.AddDbContext<AppDbContext>(opt => opt.UseInMemoryDatabase("InMem"));
 builder.Services.AddControllers();
 builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
-builder.Services.AddSwaggerGen(c =>
-{
-    c.SwaggerDoc("v1", new OpenApiInfo { Title = "My API", Version = "v1" });
-});
+builder.Services.AddEndpointsApiExplorer();
+builder.Services.AddSwaggerGen();
 builder.Services.AddScoped<IPlatformRepo, PlatformRepo>();
 
 var app = builder.Build();
 PrepDb.PrepPopulation(app);
+app.UseSwagger();
+app.UseSwaggerUI();
+app.UseSwaggerUI(options => // UseSwaggerUI is called only in Development.
+{
+    options.SwaggerEndpoint("/swagger/v1/swagger.json", "v1");
+    options.RoutePrefix = string.Empty;
+});
 //Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
 {
     app.MapOpenApi();
+
 }
 
 app.UseHttpsRedirection();
