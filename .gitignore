@@ -1,0 +1,16 @@
+# vs
+.vs
+bin/
+obj/
+debug/
+TestResults/
+TestResults.xml
+test-results/
+results.xml
+*.DotSettings.user
+.user
+.vscode/*
+
+# CFN Params files
+*-params.json
+
