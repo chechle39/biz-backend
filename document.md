@@ -22,6 +22,7 @@ kubectl get pods =>  check pods runing
 each pod will has a container
 
 kubectl delete deployment platforms-depl => delete container and pods
+kubectl rollout restart deployment platforms-depl => restart and pull new package from docker hub
 
 ==NodePort==
 kubectl apply -f platforms-np-srv.yaml => apply node || must turn on the Platforms-depl.yaml
