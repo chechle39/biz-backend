@@ -26,3 +26,4 @@ kubectl delete deployment platforms-depl => delete container and pods
 ==NodePort==
 kubectl apply -f platforms-np-srv.yaml => apply node || must turn on the Platforms-depl.yaml
 kubectl get services =>check node available
+kubectl delete services platformnpservice-srv => delete NodePort
