@@ -14,7 +14,7 @@ docker start 1e13aef68ff3 => start container again
 docker push tuanlt6/platformservice => push image to docker hub
 
 
-==K8s==Ư
+==K8s==
 kubectl version
 kubectl apply -f Platforms-depl.yaml => created k8s container
 kubectl get deployment =>  check container running
@@ -22,3 +22,7 @@ kubectl get pods =>  check pods runing
 each pod will has a container
 
 kubectl delete deployment platforms-depl => delete container and pods
+
+==NodePort==
+kubectl apply -f platforms-np-srv.yaml => apply node || must turn on the Platforms-depl.yaml
+kubectl get services =>check node available
