@@ -15,6 +15,7 @@ namespace PlatformService.SyncDataServices.Http
         }
         public async Task SendPlatformToCommand(PlatformReadDto plat)
         {
+            Console.WriteLine($"SendPlatformToCommand {_configuration["CommandService"]}");
             var httpContent = new StringContent(
                 JsonSerializer.Serialize(plat),
                 Encoding.UTF8,

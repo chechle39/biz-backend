@@ -49,12 +49,15 @@ namespace PlatformService.Controllers
             _platformRepo.CreatePlatform(map);
             _platformRepo.SaveChanges();
             var platformReadDto = _mapper.Map<PlatformReadDto>(map);
+
             try
             {
+                Console.WriteLine("Call SendPlatformToCommand");
                 await _commandDataClient.SendPlatformToCommand(platformReadDto);
             }
             catch (Exception ex)
             {
+                Console.WriteLine($"Error Call SendPlatformToCommand {ex.Message}");
             }
             var route = CreatedAtRoute(nameof(GetPlatformById), new { Id = platformReadDto.Id }, platformReadDto);
             return route;
