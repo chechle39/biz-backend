@@ -28,3 +28,19 @@ kubectl rollout restart deployment platforms-depl => restart and pull new packag
 kubectl apply -f platforms-np-srv.yaml => apply node || must turn on the Platforms-depl.yaml
 kubectl get services =>check node available
 kubectl delete services platformnpservice-srv => delete NodePort
+
+
+==ngix ingress=
+kubectl apply -f https://raw.githubusercontent.com/kubernetes/ingress-nginx/controller-v1.12.0-beta.0/deploy/static/provider/cloud/deploy.yaml
+=> ngx ingress
+kubectl apply -f https://raw.githubusercontent.com/kubernetes/ingress-nginx/controller-v0.48.1/deploy/static/provider/baremetal/deploy.yaml
+
+
+kubectl get namespace => check nampace exist
+
+kubectl get pods --namespace=ingress-nginx => check service
+kubectl get services --namespace=ingress-nginx => check service nginx
+
+
+==Add host local==
+C:\Windows\System32\drivers\etc\hosts

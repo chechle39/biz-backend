@@ -21,6 +21,7 @@ spec:
   selector:
     app: platformservice
   ports:
-    - port: 80                # Port mà Service "nghe" bên trong cluster
-      targetPort: 8080        # Port của container ứng dụng (Pod)
-      nodePort: 30010
+  - port: 80                # Port mà Service "nghe" bên trong cluster
+    targetPort: 8080        # Port của container ứng dụng (Pod)
+    nodePort: 30010
+    
