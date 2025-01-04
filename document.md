@@ -44,3 +44,11 @@ kubectl get services --namespace=ingress-nginx => check service nginx
 
 ==Add host local==
 C:\Windows\System32\drivers\etc\hosts
+
+
+=== SQL ===
+kubectl apply -f local-pvc.yaml
+kubectl get pvc => check mssql created
+kubectl create secret generic mssql1 --from-literal=SA_PASSWORD="value-pass" => create password for sql server
+
+kubectl apply -f mssql-plat-depl.yaml =>> create sql server
