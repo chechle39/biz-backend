@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using CommandsService.Data;
+using CommandsService.Dtos;
 using Microsoft.AspNetCore.Mvc;
 
 namespace CommandsService.Controllers
@@ -14,6 +15,15 @@ namespace CommandsService.Controllers
         {
             _commandRepo = commandRepo;
             _mapper = mapper;
+        }
+
+        [HttpGet]
+        public ActionResult<IEnumerable<PlatformReadDto>> GetPlatforms()
+        {
+            Console.WriteLine("--> getting platforms from commandsService...");
+            var platformItems = _commandRepo.GetAllPlatforms();
+            var map = _mapper.Map<IEnumerable<PlatformReadDto>>(platformItems);
+            return Ok(map);
         }
 
         [HttpPost]
