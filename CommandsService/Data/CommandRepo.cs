@@ -25,6 +25,11 @@ namespace CommandsService.Data
             _context.platforms.Add(platform);
         }
 
+        public bool ExternalPlatformsExits(int externalPlatformId)
+        {
+            return _context.platforms.Any(x=> x.ExternalID == externalPlatformId);
+        }
+
         public IEnumerable<Platform> GetAllPlatforms()
         {
             return _context.platforms.ToList();
