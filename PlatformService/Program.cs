@@ -1,4 +1,5 @@
 using Microsoft.EntityFrameworkCore;
+using PlatformService.AsyncDataServices;
 using PlatformService.Data;
 using PlatformService.SyncDataServices.Http;
 
@@ -31,6 +32,8 @@ if (builder.Environment.IsProduction())
 }
 
 builder.Services.AddScoped<IPlatformRepo, PlatformRepo>();
+builder.Services.AddSingleton<IMessageBusClient, MessageBusClient>();
+
 builder.Services.AddHttpClient<ICommandDataClient, HttpCommandDataClient>();
 var app = builder.Build();
 PrepDb.PrepPopulation(app, app.Environment.IsProduction());
