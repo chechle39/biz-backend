@@ -1,6 +1,7 @@
 using Microsoft.EntityFrameworkCore;
 using PlatformService.AsyncDataServices;
 using PlatformService.Data;
+using PlatformService.SyncDataServices.Grpc;
 using PlatformService.SyncDataServices.Http;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -33,9 +34,11 @@ if (builder.Environment.IsProduction())
 
 builder.Services.AddScoped<IPlatformRepo, PlatformRepo>();
 builder.Services.AddSingleton<IMessageBusClient, MessageBusClient>();
+builder.Services.AddGrpc();
 
 builder.Services.AddHttpClient<ICommandDataClient, HttpCommandDataClient>();
 var app = builder.Build();
+
 PrepDb.PrepPopulation(app, app.Environment.IsProduction());
 
 app.UseSwagger();
@@ -49,4 +52,9 @@ app.UseSwaggerUI(options => // UseSwaggerUI is called only in Development.
 
 app.UseRouting();
 app.MapControllers();
+app.MapGrpcService<GrpcPlatformService>();
+app.MapGet("/protos/platforms.proto", async context =>
+{
+    await context.Response.WriteAsync(File.ReadAllText("/Protos/platforms.proto"));
+});
 app.Run();
