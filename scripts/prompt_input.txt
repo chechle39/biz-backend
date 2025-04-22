@@ -1,33 +1,11 @@
-Pleasereviewthefollowingpullrequestusingthischecklist:
-1.	CodeQuality
-Codestyleconsistency(linterrules)
-Cyclomaticcomplexitythresholds
-Codeduplicationdetection
-Propererrorhandling/logging
-Deadcode/unusedvariables
-2.	Security
-OWASPTop10vulnerabilities
-Hardcodedsecrets/credentials
-Inputvalidation/sanitization
-Dependencyvulnerabilities(SCA)
-Permission/accesscontrolchecks
-3.	Testing
-Testcoveragethresholds
-Unit/integrationtestvalidity
-Testdatamanagement
-Mockingstrategyvalidation
-4.	Documentation
-Inlinecommentsforcomplexlogic
-UpdatedREADME/APIdocs
-Architecturedecisionrecords(ADRs)
-Errorcodedocumentation
-5.	OperationalRequirements
-Loggingstandards
-Metriccollectionhooks
-Configurationmanagement
-Disasterrecoveryplans
-6.	Performance
-Memoryleaksprevention
-Algorithmiccomplexityanalysis
-Databasequeryoptimization
-Cachingstrategyvalidation
+Please review the following pull request using this checklist:
+1. **Summarize the User Story** (from PR title, ticket links, diff)  
+2. **Estimate Complexity & Review Time**  
+3. **Evaluate Code**  
+   - **Code Quality:** style, complexity, duplication, error handling, dead code  
+   - **Security:** OWASP Top 10, secrets, input validation, dependency risks, access control  
+   - **Testing:** coverage, unit/integration validity, test data & mocking  
+   - **Documentation:** inline comments, README/APIs, ADRs  
+   - **Operations:** logging standards, metrics, config, disaster recovery  
+   - **Performance:** memory, algorithmic complexity, queries, caching  
+4. **Recommend Focus Areas:** high‑impact logic, risky spots, refactor opportunities 

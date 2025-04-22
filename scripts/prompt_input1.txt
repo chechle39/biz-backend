@@ -1,0 +1,5 @@
+Domain-Specific Checklists:	
+1.OOP principles compliance
+2..net framework best practices
+3.Memory management patterns
+4. .net build checks
