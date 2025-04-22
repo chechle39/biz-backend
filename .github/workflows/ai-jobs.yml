@@ -41,7 +41,7 @@ jobs:
           git diff origin/main..HEAD -- '*.cs' '*.yml' '*.sh' '*.yaml' > diff.txt
           cat diff.txt >> $GITHUB_ENV
           echo "EOF" >> $GITHUB_ENV
-      - name: Run AI Code Review
+      - name: Run AI Universal Code Review
         env:
           OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
@@ -85,7 +85,7 @@ jobs:
                 "Accept": "application/vnd.github+json"
             }
             data = {
-                "body": f"🤖 **AI Code Review Suggestions:**\n\n{review_comment}"
+                "body": f"🤖 **AI Universal Code Review checklists Suggestions:**\n\n{review_comment}"
             }
         
             r = requests.post(url, headers=headers, json=data)
@@ -93,7 +93,7 @@ jobs:
                 raise Exception(f"Failed to post comment: {r.text}")
             EOF
 
-      - name: Run AI Code Review
+      - name: Run AI Domain-Specific Code Review
         env:
           OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
@@ -137,7 +137,7 @@ jobs:
                 "Accept": "application/vnd.github+json"
             }
             data = {
-                "body": f"🤖 **AI Code Review Suggestions:**\n\n{review_comment}"
+                "body": f"🤖 **AI Domain-Specific Checklists Suggestions:**\n\n{review_comment}"
             }
         
             r = requests.post(url, headers=headers, json=data)
