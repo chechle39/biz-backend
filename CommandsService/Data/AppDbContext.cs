@@ -12,6 +12,8 @@ namespace CommandsService.Data
         public DbSet<Platform> platforms { get; set; }
         public DbSet<Command> commands { get; set; }
 
+        public DbSet<Car> cars { get; set; }
+
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder
