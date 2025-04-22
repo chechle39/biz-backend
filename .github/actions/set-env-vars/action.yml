@@ -1,0 +1,14 @@
+name: Set environment variables
+description: test data
+inputs:
+  varFilePath:
+    description: test
+    required: false
+    default: ./.github/variables/*
+runs:
+  using: composite
+  steps:
+    - run: |
+        chmod 775 -R ./scripts
+        ./scripts/create-env.sh
+      shell: bash
