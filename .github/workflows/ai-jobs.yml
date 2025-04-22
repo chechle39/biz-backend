@@ -116,7 +116,7 @@ jobs:
             with open("./scripts/prompt_input1.txt", "r") as file:
                 prompt_text = file.read().strip() 
             title = os.getenv("PR_TITLE")
-            prompt = f"You are a code review AI. Please review the following pull request using this checklist: {prompt_text}\n\n with pr title {title}  \n\n{diff[:3500]} Suggestions to fix"
+            prompt = f"{prompt_text}\n\n with pr title {title}  \n\n{diff[:3500]} Suggestions to fix"
             print(prompt)
             response = client.chat.completions.create(
                 model="gpt-4",
