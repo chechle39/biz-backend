@@ -38,7 +38,7 @@ jobs:
           echo "DIFF<<EOF" >> $GITHUB_ENV
          
           git fetch origin main
-          git diff origin/main..HEAD -- '*.js' '*.jsx' '*.ts' '*.tsx' > diff.txt
+          git diff origin/main..HEAD -- '*.cs' '*.yml' '*.sh' '*.yaml' > diff.txt
           cat diff.txt >> $GITHUB_ENV
           echo "EOF" >> $GITHUB_ENV
       - name: Run AI Code Review
@@ -66,30 +66,30 @@ jobs:
             title = os.getenv("PR_TITLE")
             prompt = f"You are a code review AI. Please review the following pull request using this checklist: {prompt_text}\n\n with pr title {title}  \n\n{diff[:3500]} Suggestions to fix"
             print(prompt)
-            # response = client.chat.completions.create(
-            #     model="gpt-4",
-            #     messages=[
-            #         {"role": "user", "content": prompt}
-            #     ],
-            #     max_tokens=500
-            # )
+            response = client.chat.completions.create(
+                model="gpt-4",
+                messages=[
+                    {"role": "user", "content": prompt}
+                ],
+                max_tokens=500
+            )
         
-            # review_comment = response.choices[0].message.content
+            review_comment = response.choices[0].message.content
         
-            # # Post to PR
-            # repo = os.getenv("GITHUB_REPOSITORY")
-            # pr_number = os.getenv("PR_NUMBER")
-            # url = f"https://api.github.com/repos/{repo}/issues/{pr_number}/comments"
-            # headers = {
-            #     "Authorization": f"Bearer {os.getenv('GITHUB_TOKEN')}",
-            #     "Accept": "application/vnd.github+json"
-            # }
-            # data = {
-            #     "body": f"🤖 **AI Code Review Suggestions:**\n\n{review_comment}"
-            # }
+            # Post to PR
+            repo = os.getenv("GITHUB_REPOSITORY")
+            pr_number = os.getenv("PR_NUMBER")
+            url = f"https://api.github.com/repos/{repo}/issues/{pr_number}/comments"
+            headers = {
+                "Authorization": f"Bearer {os.getenv('GITHUB_TOKEN')}",
+                "Accept": "application/vnd.github+json"
+            }
+            data = {
+                "body": f"🤖 **AI Code Review Suggestions:**\n\n{review_comment}"
+            }
         
-            # r = requests.post(url, headers=headers, json=data)
-            # if r.status_code != 201:
-            #     raise Exception(f"Failed to post comment: {r.text}")
-            # EOF
+            r = requests.post(url, headers=headers, json=data)
+            if r.status_code != 201:
+                raise Exception(f"Failed to post comment: {r.text}")
+            EOF
         
