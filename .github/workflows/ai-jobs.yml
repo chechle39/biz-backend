@@ -41,7 +41,7 @@ jobs:
           git diff origin/main..HEAD -- '*.cs' '*.yml' '*.sh' '*.yaml' > diff.txt
           cat diff.txt >> $GITHUB_ENV
           echo "EOF" >> $GITHUB_ENV
-      - name: Run AI Code Review
+      - name: Run AI Universal Code Review
         env:
           OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
@@ -85,7 +85,59 @@ jobs:
                 "Accept": "application/vnd.github+json"
             }
             data = {
-                "body": f"🤖 **AI Code Review Suggestions:**\n\n{review_comment}"
+                "body": f"🤖 **AI Universal Code Review checklists Suggestions:**\n\n{review_comment}"
+            }
+        
+            r = requests.post(url, headers=headers, json=data)
+            if r.status_code != 201:
+                raise Exception(f"Failed to post comment: {r.text}")
+            EOF
+
+      - name: Run AI Domain-Specific Code Review
+        env:
+          OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GITHUB_REPOSITORY: ${{ github.repository }}
+          PR_NUMBER: ${{ github.event.pull_request.number }}
+          PR_TITLE: ${{ github.event.pull_request.title }}
+              
+        run: |
+            pip install openai requests --upgrade
+        
+            python3 - <<EOF
+            import openai
+            import os
+            import requests
+        
+            client = openai.OpenAI(api_key=os.getenv("OPENAI_API_KEY"))
+        
+            with open("diff.txt", "r") as f:
+                diff = f.read()
+            with open("./scripts/prompt_input1.txt", "r") as file:
+                prompt_text = file.read().strip() 
+            title = os.getenv("PR_TITLE")
+            prompt = f"{prompt_text}\n\n with pr title {title}  \n\n{diff[:3500]} Suggestions to fix"
+            print(prompt)
+            response = client.chat.completions.create(
+                model="gpt-4",
+                messages=[
+                    {"role": "user", "content": prompt}
+                ],
+                max_tokens=500
+            )
+        
+            review_comment = response.choices[0].message.content
+        
+            # Post to PR
+            repo = os.getenv("GITHUB_REPOSITORY")
+            pr_number = os.getenv("PR_NUMBER")
+            url = f"https://api.github.com/repos/{repo}/issues/{pr_number}/comments"
+            headers = {
+                "Authorization": f"Bearer {os.getenv('GITHUB_TOKEN')}",
+                "Accept": "application/vnd.github+json"
+            }
+            data = {
+                "body": f"🤖 **AI Domain-Specific Checklists Suggestions:**\n\n{review_comment}"
             }
         
             r = requests.post(url, headers=headers, json=data)

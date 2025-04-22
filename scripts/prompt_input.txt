@@ -1,5 +1,11 @@
 Please review the following pull request using this checklist:
-1. Summarize the user story based on the PR title, linked ticket (e.g. US# or DE#), and diff.
-2. Estimate the complexity and expected time for human review.
-3. Evaluate the code: highlight clean code issues, missing comments, any signs of overengineering or underdocumented logic.
-4. Recommend where human reviewers should focus: mention high-impact logic changes, risky areas, or any refactors.
+1. **Summarize the User Story** (from PR title, ticket links, diff)  
+2. **Estimate Complexity & Review Time**  
+3. **Evaluate Code**  
+   - **Code Quality:** style, complexity, duplication, error handling, dead code  
+   - **Security:** OWASP Top 10, secrets, input validation, dependency risks, access control  
+   - **Testing:** coverage, unit/integration validity, test data & mocking  
+   - **Documentation:** inline comments, README/APIs, ADRs  
+   - **Operations:** logging standards, metrics, config, disaster recovery  
+   - **Performance:** memory, algorithmic complexity, queries, caching  
+4. **Recommend Focus Areas:** high‑impact logic, risky spots, refactor opportunities 
