@@ -31,5 +31,13 @@ namespace CommandsService.Controllers
             var car = _carRepo.GetAllCar();
             return Ok(car);
         }
+
+        [HttpPost]
+        public ActionResult<Car> CreateCar(Car car)
+        {
+            _carRepo.CreateCar(car);
+            _carRepo.SaveChange();
+            return Ok(car);
+        }
     }
 }

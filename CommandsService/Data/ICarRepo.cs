@@ -9,5 +9,7 @@ namespace CommandsService.Data
     public interface ICarRepo
     {
          IEnumerable<Car> GetAllCar();
+         void CreateCar(Car car);
+         bool SaveChange();
     }
 }
