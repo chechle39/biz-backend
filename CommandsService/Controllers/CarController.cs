@@ -33,7 +33,7 @@ namespace CommandsService.Controllers
         }
 
         [HttpPost]
-        public ActionResult<Car> CreatCar(Car car)
+        public ActionResult<Car> CreateCar(Car car)
         {
             _carRepo.CreateCar(car);
             _carRepo.SaveChange();
